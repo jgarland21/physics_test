@@ -12,7 +12,7 @@ d = float(input("Distance between slits (um): ")) * (10**(-6))
 a = float(input("Slit width (um): ")) * (10**(-6))
 I0 = float(input("Intensity: "))
 
-#set range to 5 minima (in radians) with step of 0.01 rad
+#set range to 5 minima (in radians) with step of 0.0001 rad
 thetaRange = 5 * l/a
 t = np.arange(-thetaRange, thetaRange, 0.0001)
 
@@ -29,9 +29,9 @@ plt.xlabel(r"$\theta$ (Degrees)")
 plt.ylabel("Intensity")
 
 #plot intensities vs theta (in degrees)
-plt.plot(np.degrees(t), Ii, ":", color="royalblue", label="Inteference", alpha=0.7)
+plt.plot(np.degrees(t), Ii, ":", color="royalblue", label="Interference", alpha=0.7)
 plt.plot(np.degrees(t), Id, "--", color="indigo", label="Diffraction", alpha=0.7)
-plt.plot(np.degrees(t), Idi, "", color="crimson", label="Inteference & Diffraction")
+plt.plot(np.degrees(t), Idi, color="crimson", label="Interference & Diffraction")
 
 plt.legend(loc=1)
 
