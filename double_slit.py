@@ -12,24 +12,27 @@ d = float(input("Distance between slits (um): ")) * (10**(-6))
 a = float(input("Slit width (um): ")) * (10**(-6))
 I0 = float(input("Intensity: "))
 
-#create empty value array
-IVals = np.zeros([1920])
+#set range to 5 minima (in radians) with step of 0.01 rad
+thetaRange = 5 * l/a
+t = np.arange(-thetaRange, thetaRange, 0.0001)
 
-#calculate intensity (step of 1/16)
-for theta in range(-960, 960):
-    #convert to radians and scale from 1920 -> 60
-    t = np.radians(theta/16)
-    I = I0 * ((np.sin(np.pi * a/l * np.sin(t))/(np.pi * a/l * np.sin(t)))**2) * ((np.cos(np.pi * d/l * np.sin(t)))**2)
-    #place points in correct index
-    IVals[theta-960] = I
+#calculate intensities
+Idi = I0 * ((np.sin(np.pi * a/l * np.sin(t))/(np.pi * a/l * np.sin(t)))**2) * ((np.cos(np.pi * d/l * np.sin(t)))**2)
+Id = I0 * ((np.sin(np.pi * a/l * np.sin(t))/(np.pi * a/l * np.sin(t)))**2)
+Ii = ((np.cos(np.pi * d/l * np.sin(t)))**2)
 
 #plot setup
-plt.margins(x=0.001) #this is weird
-plt.xlabel(r"$\theta$")
+plt.margins(x=0, y=0)
+plt.ylim(-0.01, 1.01)
+plt.title("Double Slit Intensity")
+plt.xlabel(r"$\theta$ (Degrees)")
 plt.ylabel("Intensity")
-plt.xticks(np.arange(-90, 90, 15))
-xRange = np.arange(-60, 60, 1/16)
 
-#plot intensity vs theta
-plt.plot(xRange, IVals)
+#plot intensities vs theta (in degrees)
+plt.plot(np.degrees(t), Ii, ":", color="royalblue", label="Inteference", alpha=0.7)
+plt.plot(np.degrees(t), Id, "--", color="indigo", label="Diffraction", alpha=0.7)
+plt.plot(np.degrees(t), Idi, "", color="crimson", label="Inteference & Diffraction")
+
+plt.legend(loc=1)
+
 plt.show()
