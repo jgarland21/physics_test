@@ -19,7 +19,7 @@ t = np.arange(-thetaRange, thetaRange, 0.0001)
 #calculate intensities
 Idi = I0 * ((np.sin(np.pi * a/l * np.sin(t))/(np.pi * a/l * np.sin(t)))**2) * ((np.cos(np.pi * d/l * np.sin(t)))**2)
 Id = I0 * ((np.sin(np.pi * a/l * np.sin(t))/(np.pi * a/l * np.sin(t)))**2)
-Ii = ((np.cos(np.pi * d/l * np.sin(t)))**2)
+Ii = I0 * ((np.cos(np.pi * d/l * np.sin(t)))**2)
 
 #plot setup
 plt.margins(x=0, y=0)
